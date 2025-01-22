@@ -43,7 +43,7 @@ class StoryResource(Resource):
 
         stories = Story.query.all()
 
-        return [story.to_dict() for story in stories]
+        return jsonify([story.to_dict() for story in stories]), 200
     
     def post (self):
         
@@ -57,7 +57,7 @@ class StoryResource(Resource):
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         if not data:
-            return jsonify({'error': 'No data available for posting'})
+            return jsonify({'error': 'No data available for posting'}), 400
         
         required_fields = ['title', 'subtitle', 'author', 'category', 'date']
         for field in required_fields:
