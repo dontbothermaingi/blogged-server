@@ -39,11 +39,9 @@ def allowed_filename(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
 class StoryResource(Resource):
-    def get (self):
-
+    def get(self):
         stories = Story.query.all()
-
-        return jsonify([story.to_dict() for story in stories]), 200
+        return [story.to_dict() for story in stories], 200
     
     def post (self):
         
